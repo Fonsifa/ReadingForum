@@ -1,0 +1,11 @@
+D:\vs_test\ReadingForum\bin\Debug\ReadingForum.exe.config
+D:\vs_test\ReadingForum\bin\Debug\ReadingForum.exe
+D:\vs_test\ReadingForum\bin\Debug\ReadingForum.pdb
+D:\vs_test\ReadingForum\obj\Debug\ReadingForum.csprojAssemblyReference.cache
+D:\vs_test\ReadingForum\obj\Debug\ReadingForum.Properties.Resources.resources
+D:\vs_test\ReadingForum\obj\Debug\ReadingForum.csproj.GenerateResource.cache
+D:\vs_test\ReadingForum\obj\Debug\ReadingForum.csproj.CoreCompileInputs.cache
+D:\vs_test\ReadingForum\obj\Debug\ReadingForum.exe
+D:\vs_test\ReadingForum\obj\Debug\ReadingForum.pdb
+D:\vs_test\ReadingForum\obj\Debug\ReadingForum.LandForm.resources
+D:\vs_test\ReadingForum\obj\Debug\ReadingForum.RegForm.resources
