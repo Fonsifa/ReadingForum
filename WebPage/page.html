@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head >
+    <title></title>
+	<script type="text/javascript" src="jquery-3.5.1.js"></script>
+</head>
+<body>
+    功能1：
+    <br><br>
+    <button onclick="loadXMLDoc()" value="post">获得书库列表</button>
+    <script type="text/javascript" src="jquery-3.5.1.js"></script>
+    <script type="text/javascript">
+    function GetBooks() {
+        // 写实现功能的方法
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.open('POST', 'http://localhost/ReadingWebService.asmx', true);
+        // build SOAP request
+        var sr =
+            '<?xml version="1.0" encoding="utf-8"?>' +
+            '<soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">' +
+            '<soap:Body>'+
+            '<GetBooks xmlns="http://tempuri.org/" />'+
+            '</soap:Body>'+
+            '</soap:Envelope>';
+        xmlhttp.onreadystatechange=callbackfunc;
+        // Send the POST request
+        xmlhttp.setRequestHeader('Content-Type', 'text/xml;charset=utf-8');
+        xmlhttp.setRequestHeader('Content-Length',sr.length);
+        xmlhttp.setRequestHeader('Host','localhost');
+        xmlhttp.setRequestHeader('SOAPAction','http://tempuri.org/GetBooks');
+        xmlhttp.setRequestHeader('User-Agent','HTTP/1.1');
+        xmlhttp.send(sr);
+        function callbackfunc(){
+            txt="";
+            x=xmlhttp.responseXML.getElementsByTagName("string");
+            for ( i=0;i<x.length;i++)
+            {
+                txt=txt + x[i].childNodes[0].nodeValue + "<br />";
+            }
+            document.getElementById("data").innerHTML=txt;
+        }
+    }
+    function GetContent()
+    {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.open('POST', 'http://localhost/ReadingWebService.asmx', true);
+        // build SOAP request
+        var sr =
+        '<?xml version="1.0" encoding="utf-8"?>' +
+        '<soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">'+
+        '<soap:Body>'+
+        '<GetContent xmlns="http://tempuri.org/">'+
+        '<BookName>'+
+        document.getElementById("name1").value +
+        '</BookName>'+
+        '<Chapter>'+
+        document.getElementById("chapter").value +
+        '</Chapter>'+
+        '</GetContent>'+
+        '</soap:Body>'+
+        '</soap:Envelope>';
+        xmlhttp.onreadystatechange=callbackfunc;
+        // Send the POST request
+        xmlhttp.setRequestHeader('Content-Type', 'text/xml;charset=utf-8');
+        xmlhttp.setRequestHeader('Content-Length',sr.length);
+        xmlhttp.setRequestHeader('Host','localhost');
+        xmlhttp.setRequestHeader('SOAPAction','http://tempuri.org/GetContent');
+        xmlhttp.setRequestHeader('User-Agent','HTTP/1.1');
+        xmlhttp.send(sr);
+        function callbackfunc(){
+            txt="";
+            x=xmlhttp.responseXML.getElementsByTagName("GetContentResult");
+            for ( i=0;i<x.length;i++)
+            {
+                txt=txt + x[i].childNodes[0].nodeValue + "<br />";
+            }
+            document.getElementById("data").innerHTML = txt;
+        }
+    } 
+    function GetProcess()
+    {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.open('POST', 'http://localhost/ReadingWebService.asmx', true);
+        xmlhttp.onreadystatechange=callbackfunc;
+        var sr=
+        '<?xml version="1.0" encoding="utf-8"?>'+
+        '<soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">'+
+        '<soap:Body>'+
+        '<GetProcess xmlns="http://tempuri.org/">'+
+        '<BookName>'+
+        document.getElementById("name2").value+
+        '</BookName>'+
+        '<UserId>'+
+        document.getElementById("ID").value+
+        '</UserId>'+
+        '</GetProcess>'+
+        '</soap:Body>'+
+        '</soap:Envelope>';
+        // Send the POST request
+        xmlhttp.setRequestHeader('Content-Type', 'text/xml;charset=utf-8');
+        xmlhttp.setRequestHeader('Content-Length',sr.length);
+        xmlhttp.setRequestHeader('Host','localhost');
+        xmlhttp.setRequestHeader('SOAPAction','http://tempuri.org/GetProcess');
+        xmlhttp.setRequestHeader('User-Agent','HTTP/1.1');
+        xmlhttp.send(sr);
+        function callbackfunc(){
+            txt="";
+            x=xmlhttp.responseXML.getElementsByTagName("GetContentResult");
+            for ( i=0;i<x.length;i++)
+            {
+                txt=txt + x[i].childNodes[0].nodeValue + "<br />";
+            }
+            document.getElementById("data").innerHTML = txt;
+        }
+    }
+    </script>
+    <hr>
+    功能2：
+    <br><br>
+    书名：<input type="name1" name="fname"><br>
+    章节：<input type="chapter" name="fname">
+    <p>
+    <div>
+        <button onclick="GetContent()" value="post">获得某一章的内容</button>
+    </div>
+    <hr>
+    功能3：
+    <br><br>
+    书名：<input type="name2" name="fname"><br>
+    用户ID：<input type="ID" name="fname">
+    <p>
+    <div>
+        <button onclick="GetProcess()" value="post">获得阅读进度</button>
+    </div>
+    <hr>
+    结果展示
+    <br>
+    >>
+    <div id="data">
+    </div>
+</body>
+</html>

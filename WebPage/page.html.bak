@@ -1,0 +1,43 @@
+<html>
+<head >
+    <title></title>
+	<script type="text/javascript" src="jquery-3.5.1.js"></script>
+
+    <script type="text/javascript">
+         function RequestWebService() {
+            document.getElementById("Two").value = "≤‚ ‘";
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.open('POST', '/ReadingWebService.asmx', true);
+
+            // build SOAP request
+            var sr =
+                '<?xml version="1.0" encoding="utf-8"?>' +
+                '<soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">' +
+                '<soap:Body>'+
+                '<GetBooks xmlns="http://tempuri.org/" />'+
+                '</soap:Body>'+
+                '</soap:Envelope>';
+
+            xmlhttp.onreadystatechange=callbackfunc;
+            // Send the POST request
+            xmlhttp.setRequestHeader('Content-Type', 'text/xml;charset=utf-8');
+            xmlhttp.SetRequestHeader ('Content-Length',sr.length);
+            xmlhttp.SetRequestHeader ("Host","localhost");
+            xmlhttp.SetRequestHeader ("SOAPAction","http://tempuri.org/GetBooks");
+            xmlhttp.SetRequestHeader("User-Agent","HTTP/1.1");
+            xmlhttp.send(sr);
+            function callbackfunc(){
+                document.getElementById("data").innerHTML = xmlhttp.responseXML;
+            }
+        }
+    </script>
+</head>
+<body>
+    <div>
+        <input id="One" type="button" value="post" ¶œnclick="RequestWebService()" />
+    </div>
+    <div id="data">
+        <input id="Two" type="button" value="result" ¶œnclick="RequestWebService()" />
+    </div>
+</body>
+</html>
